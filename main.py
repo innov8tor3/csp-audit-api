@@ -10,7 +10,7 @@ app = FastAPI(title="Public Repo Security Audit")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # for testing
+    allow_origins=["*"],
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -30,7 +30,7 @@ async def root():
     }
 
 @app.post("/audit")
-async def audit(req: AuditRequest):
+async def run_audit(req: AuditRequest):
     repo_url = f"https://github.com/{req.owner}/{req.repo}.git"
     
     with TemporaryDirectory() as tmpdir:
@@ -58,4 +58,4 @@ async def audit(req: AuditRequest):
             "path": req.path,
             "counts": counts,
             "files": files
-        }
+                                }
